@@ -61,7 +61,7 @@ namespace Ewidencja
         {
             try
             {
-                comboBox.Items.Clear();
+                //comboBox.Items.Clear();
                 using (SqlConnection connection = new SqlConnection(this.ConnectionString))
                 {
 
@@ -75,7 +75,7 @@ namespace Ewidencja
                     {
                         while (reader.Read())
                         {
-                            if(reader[1] != String.Empty) items.Add(new {Text = reader[1], Value = reader[0]});
+                            if((string)reader[1] != String.Empty) items.Add(new {Text = reader[1], Value = reader[0]});
                         }
                     }
                     comboBox.DataSource = items;
@@ -89,6 +89,40 @@ namespace Ewidencja
             {
                 MessageBox.Show("Połączenie z bazą danych nie powiodło się.", "Błąd połączenia", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Console.WriteLine(e.ToString());
+            }
+        }
+
+        public void UpdateEmployeesComboBox(ComboBox comboBox, string dbTableName, string companyID)
+        {
+            //try
+            {
+                using (SqlConnection connection = new SqlConnection(this.ConnectionString))
+                {
+
+                    SqlCommand command = new SqlCommand($"SELECT employeeID, employeeName, employeeSurname FROM {dbTableName} WHERE companyID = {companyID};", connection);
+                    connection.Open();
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    List<Object> items = new List<Object>();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            if ((string)reader[1] != String.Empty || (string)reader[2] != String.Empty) items.Add(new { Text = reader[1] + " " + reader[2], Value = reader[0] });
+                        }
+                    }
+                    comboBox.DataSource = items;
+                    comboBox.DisplayMember = "Text";
+                    comboBox.ValueMember = "Value";
+                    reader.Close();
+                    connection.Close();
+                }
+            }
+            //catch (Exception e)
+            {
+                //MessageBox.Show("Połączenie z bazą danych nie powiodło się.", "Błąd połączenia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //Console.WriteLine(e.ToString());
             }
         }
 
@@ -132,7 +166,7 @@ namespace Ewidencja
                     if (firstField) firstField = false;
                     else fields += ", ";
                     var value = property.GetValue(item, null);
-                    if (value == null) fields += $"{property.Name} = null";
+                    if (value == null) fields += $"{property.Name} = NULL";
                     else fields += $"{property.Name} = '{value.ToString()}'";
                 }
                 else itemID = property.GetValue(item, null).ToString();
@@ -150,7 +184,7 @@ namespace Ewidencja
 
         public void GeneralNonSelectQuery(string sqlQuery)
 		{
-            try
+            //try
             {
                 MessageBox.Show(sqlQuery);
                 using (SqlConnection connection = new SqlConnection(this.ConnectionString))
@@ -163,10 +197,10 @@ namespace Ewidencja
                     connection.Close();
                 }
             }
-            catch (Exception e)
+            //catch (Exception e)
             {
-                MessageBox.Show("Połączenie z bazą danych nie powiodło się.", "Błąd połączenia", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.ToString());
+                //MessageBox.Show("Połączenie z bazą danych nie powiodło się.", "Błąd połączenia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //Console.WriteLine(e.ToString());
             }
         }
 
