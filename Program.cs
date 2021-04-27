@@ -17,7 +17,8 @@ namespace Ewidencja
 			Application.SetHighDpiMode(HighDpiMode.SystemAware);
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new MainWindow());
+			DatabaseConnector dbConnector = new DatabaseConnector();
+			Application.Run(new CompaniesWindow(dbConnector));
 		}
 	}
 }
