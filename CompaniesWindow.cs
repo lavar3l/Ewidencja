@@ -73,6 +73,7 @@ namespace Ewidencja
 				Company companyDetails = form.companyDetails;
 				db.UpdateItem("Companies", companyDetails);
 			}
+			UpdateFormList();
 		}
 
 		private void addButton_Click(object sender, EventArgs e)
@@ -84,6 +85,7 @@ namespace Ewidencja
 				Company companyDetails = form.companyDetails;
 				db.AddItem("Companies", companyDetails);
 			}
+			UpdateFormList();
 		}
 	}
 }

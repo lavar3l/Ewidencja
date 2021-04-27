@@ -31,18 +31,18 @@ namespace Ewidencja
 
 	public class Employee
 	{
-		public Int32 employeeID;
-		public Int32 companyID;
-		public string employeeName;
-		public string employeeSurname;
-		public string position;
-		public string phone;
-		public string email;
+		public string employeeID { get; set; }
+		public string companyID { get; set; }
+		public string employeeName { get; set; }
+		public string employeeSurname { get; set; }
+		public string position { get; set; }
+		public string phone { get; set; }
+		public string email { get; set; }
 
 		public Employee(string employeeID, string companyID, string employeeName, string employeeSurname, string position, string phone, string email)
 		{
-			this.employeeID = Int32.Parse(employeeID);
-			this.companyID = Int32.Parse(companyID);
+			this.employeeID = employeeID;
+			this.companyID = companyID;
 			this.employeeName = employeeName;
 			this.employeeSurname = employeeSurname;
 			this.position = position;
@@ -53,24 +53,24 @@ namespace Ewidencja
 
 	public class Computer
 	{
-		public Int32 computerID;
-		public Int32 companyID;
-		public Int32 employeeID;
-		public DateTime dateOfPurchase;
-		public string CPU;
-		public int ramSize;
-		public int diskSize;
-		public string windowsKey;
+		public string computerID { get; set; }
+		public string companyID { get; set; }
+		public string employeeID { get; set; }
+		public string dateOfPurchase { get; set; }
+		public string CPU { get; set; }
+		public string ramSize { get; set; }
+		public string diskSize { get; set; }
+		public string windowsKey { get; set; }
 
 		public Computer(string computerID, string companyID, string employeeID, string dateOfPurchase, string CPU, string ramSize, string diskSize, string windowsKey)
 		{
-			this.computerID = Int32.Parse(computerID);
-			this.employeeID = Int32.Parse(employeeID);
-			this.companyID = Int32.Parse(companyID);
-			this.dateOfPurchase = DateTime.Parse(dateOfPurchase);
+			this.computerID = computerID;
+			this.employeeID = employeeID;
+			this.companyID = companyID;
+			this.dateOfPurchase = dateOfPurchase;
 			this.CPU = CPU;
-			this.ramSize = Int32.Parse(ramSize);
-			this.diskSize = Int32.Parse(diskSize);
+			this.ramSize = ramSize;
+			this.diskSize = diskSize;
 			this.windowsKey = windowsKey;
 		}
 	}

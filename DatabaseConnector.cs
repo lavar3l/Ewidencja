@@ -57,6 +57,41 @@ namespace Ewidencja
             }
         }
 
+        public void UpdateCompaniesComboBox(ComboBox comboBox, string dbTableName)
+        {
+            try
+            {
+                comboBox.Items.Clear();
+                using (SqlConnection connection = new SqlConnection(this.ConnectionString))
+                {
+
+                    SqlCommand command = new SqlCommand($"SELECT companyID, companyName FROM {dbTableName};", connection);
+                    connection.Open();
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    List<Object> items = new List<Object>();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            if(reader[1] != String.Empty) items.Add(new {Text = reader[1], Value = reader[0]});
+                        }
+                    }
+                    comboBox.DataSource = items;
+                    comboBox.DisplayMember = "Text";
+                    comboBox.ValueMember = "Value";
+                    reader.Close();
+                    connection.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Połączenie z bazą danych nie powiodło się.", "Błąd połączenia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.ToString());
+            }
+        }
+
         public void AddItem(string table, object item)
 		{
             string fields = "";
@@ -117,6 +152,7 @@ namespace Ewidencja
 		{
             try
             {
+                MessageBox.Show(sqlQuery);
                 using (SqlConnection connection = new SqlConnection(this.ConnectionString))
                 {
                     connection.Open();
