@@ -18,7 +18,7 @@ namespace Ewidencja
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			DatabaseConnector dbConnector = new DatabaseConnector();
-			Application.Run(new ReportsWindow(dbConnector));
+			Application.Run(new MainWindow(dbConnector));
 		}
 	}
 }

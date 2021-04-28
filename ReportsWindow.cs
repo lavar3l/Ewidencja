@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using iText.IO.Font.Constants;
+using iText.Kernel.Font;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
 
 namespace Ewidencja
 {
@@ -60,7 +66,24 @@ namespace Ewidencja
 
 		private void saveButton_Click(object sender, EventArgs e)
 		{
-
+			bool singleCompany = false;
+			bool singleEmployee = false;
+			string companyName = null;
+			string employeeFullName = null;
+			List<int> hideColumns = new List<int>() { 2, 3, 4 };
+			if (companyComboBox.SelectedIndex >= 0)
+			{
+				singleCompany = true;
+				hideColumns.Add(0);
+				companyName = ((KeyValuePair<string, string>)companyComboBox.SelectedItem).Value;
+			}
+			if (employeeComboBox.SelectedIndex >= 0)
+			{
+				singleEmployee = true;
+				hideColumns.Add(1);
+				employeeFullName = ((KeyValuePair<string, string>)employeeComboBox.SelectedItem).Value;
+			}
+			SaveReportToPDF(singleCompany, singleEmployee, hideColumns, companyName, employeeFullName);
 		}
 
 		private void GenerateReport()
@@ -107,7 +130,59 @@ namespace Ewidencja
 			sqlQuery += ";";
 			MessageBox.Show(sqlQuery);
 			this.db.GeneralSelectQuery(reportListView, sqlQuery);
+
+			saveButton.Enabled = true;
 		}
 
+		private void SaveReportToPDF(bool singleCompany, bool singleEmployee, List<int> hideColumns, string companyName = null, string employeeFullName = null)
+		{
+			try
+			{
+				using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+				{
+					saveFileDialog.Filter = "Plik PDF (*.pdf)|*.pdf";
+					saveFileDialog.FilterIndex = 0;
+					saveFileDialog.RestoreDirectory = true;
+
+					if (saveFileDialog.ShowDialog() == DialogResult.OK)
+					{
+						// Tworzenie bazowego dokumentu
+						PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write)));
+						Document document = new Document(pdfDocument);
+
+						// Przygotowanie nagłówków
+						PdfFont fontHeader = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD, "Windows-1250");
+						document.Add(new Paragraph("Raport ewidencji sprzętu komputerowego").SetFont(fontHeader).SetFontSize(24));
+
+						PdfFont fontParagraph = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD, "Windows-1250");
+						if (singleCompany) document.Add(new Paragraph($"Firma: {companyName}").SetFont(fontParagraph).SetFontSize(14));
+						if (singleEmployee) document.Add(new Paragraph($"Odpowiedzialny pracownik: {employeeFullName}").SetFont(fontParagraph).SetFontSize(14));
+
+						// Przygotowanie tabeli
+						PdfFont fontText = PdfFontFactory.CreateFont(StandardFonts.HELVETICA, "Windows-1250");
+						Table table = new Table(reportListView.Columns.Count - hideColumns.Count);
+						for (int i = 0; i < reportListView.Columns.Count; i++)
+						{
+							if (!hideColumns.Contains(i)) table.AddHeaderCell(reportListView.Columns[i].Text).SetFont(fontText);
+						}
+						foreach (ListViewItem itemRow in reportListView.Items)
+						{
+							for (int i = 0; i < itemRow.SubItems.Count; i++)
+							{
+								if (!hideColumns.Contains(i)) table.AddCell(itemRow.SubItems[i].Text).SetFont(fontText);
+							}
+						}
+						document.Add(table);
+
+						// Zamknięcie dokumentu
+						document.Close();
+					}
+				}
+			}
+			catch(Exception e)
+			{
+				MessageBox.Show("Zapis do pliku nie powiódł się!", "Błąd zapisu do pliku", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
 	}
 }

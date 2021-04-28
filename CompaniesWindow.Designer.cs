@@ -203,6 +203,7 @@ namespace Ewidencja
 			this.Controls.Add(this.addButton);
 			this.Controls.Add(this.panel1);
 			this.Name = "CompaniesWindow";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Firmy";
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();

@@ -47,7 +47,8 @@ namespace Ewidencja
                             List<string> cells = new List<string>();
                             for(int column = 0; column < reader.FieldCount; column++)
 							{
-                                cells.Add(reader[column].ToString());
+                                if (reader[column] is DateTime) cells.Add(((DateTime)reader[column]).ToString("yyyy-MM-dd"));
+                                else cells.Add(reader[column].ToString());
 							}
                             listView.Items.Add(new ListViewItem(cells.ToArray()));
                         }

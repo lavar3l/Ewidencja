@@ -60,12 +60,12 @@ namespace Ewidencja
 			this.RAMbeginTextBox = new System.Windows.Forms.TextBox();
 			this.CPUTextBox = new System.Windows.Forms.TextBox();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.dateEndCheckBox = new System.Windows.Forms.CheckBox();
+			this.dateBeginCheckBox = new System.Windows.Forms.CheckBox();
 			this.label8 = new System.Windows.Forms.Label();
 			this.dateTimePickerEnd = new System.Windows.Forms.DateTimePicker();
 			this.label6 = new System.Windows.Forms.Label();
 			this.dateTimePickerBegin = new System.Windows.Forms.DateTimePicker();
-			this.dateBeginCheckBox = new System.Windows.Forms.CheckBox();
-			this.dateEndCheckBox = new System.Windows.Forms.CheckBox();
 			this.panel1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -355,6 +355,24 @@ namespace Ewidencja
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Data zakupu";
 			// 
+			// dateEndCheckBox
+			// 
+			this.dateEndCheckBox.AutoSize = true;
+			this.dateEndCheckBox.Location = new System.Drawing.Point(440, 117);
+			this.dateEndCheckBox.Name = "dateEndCheckBox";
+			this.dateEndCheckBox.Size = new System.Drawing.Size(28, 27);
+			this.dateEndCheckBox.TabIndex = 59;
+			this.dateEndCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// dateBeginCheckBox
+			// 
+			this.dateBeginCheckBox.AutoSize = true;
+			this.dateBeginCheckBox.Location = new System.Drawing.Point(440, 59);
+			this.dateBeginCheckBox.Name = "dateBeginCheckBox";
+			this.dateBeginCheckBox.Size = new System.Drawing.Size(28, 27);
+			this.dateBeginCheckBox.TabIndex = 58;
+			this.dateBeginCheckBox.UseVisualStyleBackColor = true;
+			// 
 			// label8
 			// 
 			this.label8.AutoSize = true;
@@ -391,24 +409,6 @@ namespace Ewidencja
 			this.dateTimePickerBegin.Size = new System.Drawing.Size(198, 39);
 			this.dateTimePickerBegin.TabIndex = 53;
 			// 
-			// dateBeginCheckBox
-			// 
-			this.dateBeginCheckBox.AutoSize = true;
-			this.dateBeginCheckBox.Location = new System.Drawing.Point(440, 59);
-			this.dateBeginCheckBox.Name = "dateBeginCheckBox";
-			this.dateBeginCheckBox.Size = new System.Drawing.Size(28, 27);
-			this.dateBeginCheckBox.TabIndex = 58;
-			this.dateBeginCheckBox.UseVisualStyleBackColor = true;
-			// 
-			// dateEndCheckBox
-			// 
-			this.dateEndCheckBox.AutoSize = true;
-			this.dateEndCheckBox.Location = new System.Drawing.Point(440, 117);
-			this.dateEndCheckBox.Name = "dateEndCheckBox";
-			this.dateEndCheckBox.Size = new System.Drawing.Size(28, 27);
-			this.dateEndCheckBox.TabIndex = 59;
-			this.dateEndCheckBox.UseVisualStyleBackColor = true;
-			// 
 			// ReportsWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
@@ -422,6 +422,7 @@ namespace Ewidencja
 			this.Controls.Add(this.reportListView);
 			this.Controls.Add(this.panel1);
 			this.Name = "ReportsWindow";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Raporty";
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();

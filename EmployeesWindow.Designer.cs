@@ -33,6 +33,7 @@ namespace Ewidencja
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.refreshButton = new System.Windows.Forms.Button();
 			this.employeesListView = new System.Windows.Forms.ListView();
+			this.companyNameColumnHeader = new System.Windows.Forms.ColumnHeader();
 			this.employeeIDColumnHeader = new System.Windows.Forms.ColumnHeader();
 			this.companyIDEmployeeColumnHeader = new System.Windows.Forms.ColumnHeader();
 			this.nameColumnHeader = new System.Windows.Forms.ColumnHeader();
@@ -43,7 +44,6 @@ namespace Ewidencja
 			this.deleteButton = new System.Windows.Forms.Button();
 			this.editButton = new System.Windows.Forms.Button();
 			this.addButton = new System.Windows.Forms.Button();
-			this.companyNameColumnHeader = new System.Windows.Forms.ColumnHeader();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -109,6 +109,11 @@ namespace Ewidencja
 			this.employeesListView.UseCompatibleStateImageBehavior = false;
 			this.employeesListView.View = System.Windows.Forms.View.Details;
 			this.employeesListView.SelectedIndexChanged += new System.EventHandler(this.employeesListView_SelectedIndexChanged);
+			// 
+			// companyNameColumnHeader
+			// 
+			this.companyNameColumnHeader.Text = "Nazwa firmy";
+			this.companyNameColumnHeader.Width = 300;
 			// 
 			// employeeIDColumnHeader
 			// 
@@ -192,11 +197,6 @@ namespace Ewidencja
 			this.addButton.UseVisualStyleBackColor = false;
 			this.addButton.Click += new System.EventHandler(this.addButton_Click);
 			// 
-			// companyNameColumnHeader
-			// 
-			this.companyNameColumnHeader.Text = "Nazwa firmy";
-			this.companyNameColumnHeader.Width = 300;
-			// 
 			// EmployeesWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
@@ -209,6 +209,7 @@ namespace Ewidencja
 			this.Controls.Add(this.addButton);
 			this.Controls.Add(this.panel1);
 			this.Name = "EmployeesWindow";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Pracownicy";
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();

@@ -32,6 +32,8 @@ namespace Ewidencja
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.label1 = new System.Windows.Forms.Label();
 			this.computersListView = new System.Windows.Forms.ListView();
+			this.companyNameComputerColumnHeader = new System.Windows.Forms.ColumnHeader();
+			this.employeeFullNameComputerColumnHeader = new System.Windows.Forms.ColumnHeader();
 			this.computerIDColumnHeader = new System.Windows.Forms.ColumnHeader();
 			this.companyIDComputerColumnHeader = new System.Windows.Forms.ColumnHeader();
 			this.employeeIDComputerColumnHeader = new System.Windows.Forms.ColumnHeader();
@@ -44,8 +46,6 @@ namespace Ewidencja
 			this.editButton = new System.Windows.Forms.Button();
 			this.addButton = new System.Windows.Forms.Button();
 			this.refreshButton = new System.Windows.Forms.Button();
-			this.companyNameComputerColumnHeader = new System.Windows.Forms.ColumnHeader();
-			this.employeeFullNameComputerColumnHeader = new System.Windows.Forms.ColumnHeader();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -98,6 +98,16 @@ namespace Ewidencja
 			this.computersListView.UseCompatibleStateImageBehavior = false;
 			this.computersListView.View = System.Windows.Forms.View.Details;
 			this.computersListView.SelectedIndexChanged += new System.EventHandler(this.computersListView_SelectedIndexChanged);
+			// 
+			// companyNameComputerColumnHeader
+			// 
+			this.companyNameComputerColumnHeader.Text = "Nazwa firmy";
+			this.companyNameComputerColumnHeader.Width = 200;
+			// 
+			// employeeFullNameComputerColumnHeader
+			// 
+			this.employeeFullNameComputerColumnHeader.Text = "Pracownik";
+			this.employeeFullNameComputerColumnHeader.Width = 200;
 			// 
 			// computerIDColumnHeader
 			// 
@@ -201,16 +211,6 @@ namespace Ewidencja
 			this.refreshButton.UseVisualStyleBackColor = false;
 			this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
 			// 
-			// companyNameComputerColumnHeader
-			// 
-			this.companyNameComputerColumnHeader.Text = "Nazwa firmy";
-			this.companyNameComputerColumnHeader.Width = 200;
-			// 
-			// employeeFullNameComputerColumnHeader
-			// 
-			this.employeeFullNameComputerColumnHeader.Text = "Pracownik";
-			this.employeeFullNameComputerColumnHeader.Width = 200;
-			// 
 			// ComputersWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
@@ -223,6 +223,7 @@ namespace Ewidencja
 			this.Controls.Add(this.addButton);
 			this.Controls.Add(this.refreshButton);
 			this.Name = "ComputersWindow";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Komputery";
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
