@@ -18,13 +18,14 @@ namespace Ewidencja
 		{
 			this.db = dbConnector;
 			InitializeComponent();
-			employeesListView.Columns[0].Width = 0;
+			employeesListView.Columns[1].Width = 0;
+			employeesListView.Columns[2].Width = 0;
 			UpdateFormList();
 		}
 
 		private void UpdateFormList()
 		{
-			this.db.UpdateListView(employeesListView, "Employees");
+			this.db.UpdateListView(employeesListView, "EmployeesView");
 		}
 
 		private void refreshButton_Click(object sender, EventArgs e)
@@ -49,10 +50,10 @@ namespace Ewidencja
 		private void deleteButton_Click(object sender, EventArgs e)
 		{
 			var SelectedItem = this.employeesListView.SelectedItems[0];
-			DialogResult result = MessageBox.Show($"Czy napewno chcesz usunąć pracownika {SelectedItem.SubItems[2].Text} {SelectedItem.SubItems[3].Text}?", "Usuwanie pracownika", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+			DialogResult result = MessageBox.Show($"Czy napewno chcesz usunąć pracownika {SelectedItem.SubItems[3].Text} {SelectedItem.SubItems[4].Text}?", "Usuwanie pracownika", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
 			if (result == DialogResult.Yes)
 			{
-				db.DeleteItem("Employees", SelectedItem.SubItems[0].Text, "employeeID");
+				db.DeleteItem("Employees", SelectedItem.SubItems[1].Text, "employeeID");
 			}
 			UpdateFormList();
 		}
@@ -60,7 +61,7 @@ namespace Ewidencja
 		private void editButton_Click(object sender, EventArgs e)
 		{
 			var SelectedItem = this.employeesListView.SelectedItems[0];
-			EmployeeDetails form = new EmployeeDetails(db, false, new Employee(SelectedItem.SubItems[0].Text, SelectedItem.SubItems[1].Text, SelectedItem.SubItems[2].Text, SelectedItem.SubItems[3].Text, SelectedItem.SubItems[4].Text, SelectedItem.SubItems[5].Text, SelectedItem.SubItems[6].Text));
+			EmployeeDetails form = new EmployeeDetails(db, false, new Employee(SelectedItem.SubItems[1].Text, SelectedItem.SubItems[2].Text, SelectedItem.SubItems[3].Text, SelectedItem.SubItems[4].Text, SelectedItem.SubItems[5].Text, SelectedItem.SubItems[6].Text, SelectedItem.SubItems[7].Text), SelectedItem.SubItems[0].Text);
 			form.ShowDialog();
 			if (form.DialogResult == DialogResult.OK)
 			{

@@ -33,9 +33,6 @@ namespace Ewidencja
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.refreshButton = new System.Windows.Forms.Button();
 			this.employeesListView = new System.Windows.Forms.ListView();
-			this.deleteButton = new System.Windows.Forms.Button();
-			this.editButton = new System.Windows.Forms.Button();
-			this.addButton = new System.Windows.Forms.Button();
 			this.employeeIDColumnHeader = new System.Windows.Forms.ColumnHeader();
 			this.companyIDEmployeeColumnHeader = new System.Windows.Forms.ColumnHeader();
 			this.nameColumnHeader = new System.Windows.Forms.ColumnHeader();
@@ -43,6 +40,10 @@ namespace Ewidencja
 			this.positionColumnHeader = new System.Windows.Forms.ColumnHeader();
 			this.phoneColumnHeader = new System.Windows.Forms.ColumnHeader();
 			this.emailColumnHeader = new System.Windows.Forms.ColumnHeader();
+			this.deleteButton = new System.Windows.Forms.Button();
+			this.editButton = new System.Windows.Forms.Button();
+			this.addButton = new System.Windows.Forms.Button();
+			this.companyNameColumnHeader = new System.Windows.Forms.ColumnHeader();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -89,6 +90,7 @@ namespace Ewidencja
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.employeesListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.companyNameColumnHeader,
             this.employeeIDColumnHeader,
             this.companyIDEmployeeColumnHeader,
             this.nameColumnHeader,
@@ -107,6 +109,41 @@ namespace Ewidencja
 			this.employeesListView.UseCompatibleStateImageBehavior = false;
 			this.employeesListView.View = System.Windows.Forms.View.Details;
 			this.employeesListView.SelectedIndexChanged += new System.EventHandler(this.employeesListView_SelectedIndexChanged);
+			// 
+			// employeeIDColumnHeader
+			// 
+			this.employeeIDColumnHeader.Text = "ID pracownika";
+			this.employeeIDColumnHeader.Width = 180;
+			// 
+			// companyIDEmployeeColumnHeader
+			// 
+			this.companyIDEmployeeColumnHeader.Text = "ID Firmy";
+			this.companyIDEmployeeColumnHeader.Width = 150;
+			// 
+			// nameColumnHeader
+			// 
+			this.nameColumnHeader.Text = "Imię";
+			this.nameColumnHeader.Width = 200;
+			// 
+			// surnameColumnHeader
+			// 
+			this.surnameColumnHeader.Text = "Nazwisko";
+			this.surnameColumnHeader.Width = 200;
+			// 
+			// positionColumnHeader
+			// 
+			this.positionColumnHeader.Text = "Stanowisko";
+			this.positionColumnHeader.Width = 260;
+			// 
+			// phoneColumnHeader
+			// 
+			this.phoneColumnHeader.Text = "Numer telefonu";
+			this.phoneColumnHeader.Width = 200;
+			// 
+			// emailColumnHeader
+			// 
+			this.emailColumnHeader.Text = "Adres e-mail";
+			this.emailColumnHeader.Width = 300;
 			// 
 			// deleteButton
 			// 
@@ -155,40 +192,10 @@ namespace Ewidencja
 			this.addButton.UseVisualStyleBackColor = false;
 			this.addButton.Click += new System.EventHandler(this.addButton_Click);
 			// 
-			// employeeIDColumnHeader
+			// companyNameColumnHeader
 			// 
-			this.employeeIDColumnHeader.Text = "ID pracownika";
-			this.employeeIDColumnHeader.Width = 180;
-			// 
-			// companyIDEmployeeColumnHeader
-			// 
-			this.companyIDEmployeeColumnHeader.Text = "ID Firmy";
-			this.companyIDEmployeeColumnHeader.Width = 150;
-			// 
-			// nameColumnHeader
-			// 
-			this.nameColumnHeader.Text = "Imię";
-			this.nameColumnHeader.Width = 200;
-			// 
-			// surnameColumnHeader
-			// 
-			this.surnameColumnHeader.Text = "Nazwisko";
-			this.surnameColumnHeader.Width = 200;
-			// 
-			// positionColumnHeader
-			// 
-			this.positionColumnHeader.Text = "Stanowisko";
-			this.positionColumnHeader.Width = 260;
-			// 
-			// phoneColumnHeader
-			// 
-			this.phoneColumnHeader.Text = "Numer telefonu";
-			this.phoneColumnHeader.Width = 200;
-			// 
-			// emailColumnHeader
-			// 
-			this.emailColumnHeader.Text = "Adres e-mail";
-			this.emailColumnHeader.Width = 300;
+			this.companyNameColumnHeader.Text = "Nazwa firmy";
+			this.companyNameColumnHeader.Width = 300;
 			// 
 			// EmployeesWindow
 			// 
@@ -225,5 +232,6 @@ namespace Ewidencja
 		private System.Windows.Forms.ColumnHeader positionColumnHeader;
 		private System.Windows.Forms.ColumnHeader phoneColumnHeader;
 		private System.Windows.Forms.ColumnHeader emailColumnHeader;
+		private System.Windows.Forms.ColumnHeader companyNameColumnHeader;
 	}
 }

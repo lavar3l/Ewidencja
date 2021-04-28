@@ -18,13 +18,14 @@ namespace Ewidencja
 		{
 			this.db = dbConnector;
 			InitializeComponent();
-			computersListView.Columns[0].Width = 0;
+			computersListView.Columns[2].Width = 0;
+			computersListView.Columns[3].Width = 0;
 			UpdateFormList();
 		}
 
 		private void UpdateFormList()
 		{
-			this.db.UpdateListView(computersListView, "Computers");
+			this.db.UpdateListView(computersListView, "ComputersView");
 		}
 
 		private void refreshButton_Click(object sender, EventArgs e)
@@ -52,7 +53,7 @@ namespace Ewidencja
 			DialogResult result = MessageBox.Show($"Czy napewno chcesz usunąć wybrany komputer?", "Usuwanie komputera", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
 			if (result == DialogResult.Yes)
 			{
-				db.DeleteItem("Computers", SelectedItem.SubItems[0].Text, "computerID");
+				db.DeleteItem("Computers", SelectedItem.SubItems[2].Text, "computerID");
 			}
 			UpdateFormList();
 		}
@@ -60,7 +61,8 @@ namespace Ewidencja
 		private void editButton_Click(object sender, EventArgs e)
 		{
 			var SelectedItem = this.computersListView.SelectedItems[0];
-			ComputerDetails form = new ComputerDetails(db, false, new Computer(SelectedItem.SubItems[0].Text, SelectedItem.SubItems[1].Text, SelectedItem.SubItems[2].Text, SelectedItem.SubItems[3].Text, SelectedItem.SubItems[4].Text, SelectedItem.SubItems[5].Text, SelectedItem.SubItems[6].Text, SelectedItem.SubItems[7].Text));
+			ComputerDetails form = new ComputerDetails(db, false, new Computer(SelectedItem.SubItems[2].Text, SelectedItem.SubItems[3].Text, SelectedItem.SubItems[4].Text, SelectedItem.SubItems[5].Text, SelectedItem.SubItems[6].Text, SelectedItem.SubItems[7].Text, SelectedItem.SubItems[8].Text, SelectedItem.SubItems[9].Text), SelectedItem.SubItems[0].Text, SelectedItem.SubItems[1].Text);
+			MessageBox.Show($"!#! {SelectedItem.SubItems[4].Text}, {SelectedItem.SubItems[1].Text}");
 			form.ShowDialog();
 			if (form.DialogResult == DialogResult.OK)
 			{

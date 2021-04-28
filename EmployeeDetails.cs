@@ -17,7 +17,7 @@ namespace Ewidencja
 		string employeeID = "0"; // Ma znaczenie tylko przy edycji!
 		string companyID = "0"; // Ma znaczenie tylko przy nowym rekordzie!
 
-		public EmployeeDetails(DatabaseConnector db, bool addNew = true, Employee initialData = null)
+		public EmployeeDetails(DatabaseConnector db, bool addNew = true, Employee initialData = null, string initialCompanyName = null)
 		{
 			InitializeComponent();
 			this.db = db;
@@ -27,7 +27,7 @@ namespace Ewidencja
 				this.Text = "Edycja danych pracownika";
 				acceptButton.Text = "Zapisz";
 				companyComboBox.Enabled = false;
-				companyComboBox.Text = $"Firma o ID = {initialData.companyID}";
+				companyComboBox.Text = initialCompanyName;
 				companyID = initialData.companyID;
 				employeeID = initialData.employeeID;
 				nameTextBox.Text = initialData.employeeName;
@@ -63,7 +63,7 @@ namespace Ewidencja
 
 		private void companyComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			companyID = companyComboBox.SelectedValue.ToString();
+			companyID = ((KeyValuePair<string, string>)companyComboBox.SelectedItem).Key;
 			MessageBox.Show(companyID);
 		}
 	}

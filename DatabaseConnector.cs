@@ -19,17 +19,23 @@ namespace Ewidencja
         public DatabaseConnector()
 		{
             InitializeConnection();
+            InitializeViews();
             //ConnectData();
-		}
+        }
 
         public void UpdateListView(ListView listView, string dbTableName)
+		{
+            GeneralSelectQuery(listView, $"SELECT * FROM {dbTableName};");
+        }
+
+        public void GeneralSelectQuery(ListView listView, string sqlQuery)
         {
             try
             {
                 listView.Items.Clear();
                 using (SqlConnection connection = new SqlConnection(this.ConnectionString))
                 {
-                    SqlCommand command = new SqlCommand($"SELECT * FROM {dbTableName};", connection);
+                    SqlCommand command = new SqlCommand(sqlQuery, connection);
                     connection.Open();
 
                     SqlDataReader reader = command.ExecuteReader();
@@ -57,6 +63,7 @@ namespace Ewidencja
             }
         }
 
+
         public void UpdateCompaniesComboBox(ComboBox comboBox, string dbTableName)
         {
             try
@@ -75,12 +82,12 @@ namespace Ewidencja
                     {
                         while (reader.Read())
                         {
-                            if((string)reader[1] != String.Empty) items.Add(new {Text = reader[1], Value = reader[0]});
+                            if((string)reader[1] != String.Empty) items.Add(new KeyValuePair<string, string>(reader[0].ToString(),  reader[1].ToString()));
                         }
                     }
                     comboBox.DataSource = items;
-                    comboBox.DisplayMember = "Text";
-                    comboBox.ValueMember = "Value";
+                    comboBox.DisplayMember = "Value";
+                    comboBox.ValueMember = "Key";
                     reader.Close();
                     connection.Close();
                 }
@@ -94,7 +101,7 @@ namespace Ewidencja
 
         public void UpdateEmployeesComboBox(ComboBox comboBox, string dbTableName, string companyID)
         {
-            //try
+            try
             {
                 using (SqlConnection connection = new SqlConnection(this.ConnectionString))
                 {
@@ -109,20 +116,20 @@ namespace Ewidencja
                     {
                         while (reader.Read())
                         {
-                            if ((string)reader[1] != String.Empty || (string)reader[2] != String.Empty) items.Add(new { Text = reader[1] + " " + reader[2], Value = reader[0] });
+                            if ((string)reader[1] != String.Empty || (string)reader[2] != String.Empty) items.Add(new KeyValuePair<string, string>(reader[0].ToString(), reader[1].ToString() + " " + reader[2].ToString()));
                         }
                     }
                     comboBox.DataSource = items;
-                    comboBox.DisplayMember = "Text";
-                    comboBox.ValueMember = "Value";
+                    comboBox.DisplayMember = "Value";
+                    comboBox.ValueMember = "Key";
                     reader.Close();
                     connection.Close();
                 }
             }
-            //catch (Exception e)
+            catch (Exception e)
             {
-                //MessageBox.Show("Połączenie z bazą danych nie powiodło się.", "Błąd połączenia", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //Console.WriteLine(e.ToString());
+                MessageBox.Show("Połączenie z bazą danych nie powiodło się.", "Błąd połączenia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.ToString());
             }
         }
 
@@ -222,6 +229,23 @@ namespace Ewidencja
                 MessageBox.Show("Połączenie z bazą danych nie powiodło się.", "Błąd połączenia", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Console.WriteLine(e.ToString());
             }
+        }
+
+        private void InitializeViews()
+		{
+            string employeesViewSQL = @"CREATE OR ALTER VIEW EmployeesView AS
+                                        SELECT Companies.companyName, Employees.employeeID, Employees.companyID, Employees.employeeName, Employees.employeeSurname, Employees.position, Employees.phone, Employees.email
+                                        FROM Employees
+                                        LEFT JOIN Companies ON Employees.companyID = Companies.companyID;";
+
+            string computersViewSQL = @"CREATE OR ALTER VIEW ComputersView AS
+                                        SELECT Companies.companyName, CONVERT(NVARCHAR(MAX), CONCAT(Employees.employeeName, ' ', Employees.employeeSurname)) as employeeFullName, computerID, Computers.companyID, Computers.employeeID, Computers.dateOfPurchase, Computers.CPU, Computers.RAMSize, Computers.DiskSize, Computers.windowsKey
+                                        FROM Computers
+                                        LEFT JOIN Companies ON Computers.companyID = Companies.companyID
+                                        LEFT JOIN Employees ON Computers.employeeID = Employees.employeeID;";
+
+            GeneralNonSelectQuery(employeesViewSQL);
+            GeneralNonSelectQuery(computersViewSQL);
         }
 
         private void ConnectData()

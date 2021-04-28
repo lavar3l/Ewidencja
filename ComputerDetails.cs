@@ -18,7 +18,7 @@ namespace Ewidencja
 		string employeeID = "0"; // Ma znaczenie tylko przy edycji!
 		string companyID = "0"; // Ma znaczenie tylko przy nowym rekordzie!
 
-		public ComputerDetails(DatabaseConnector db, bool addNew = true, Computer initialData = null)
+		public ComputerDetails(DatabaseConnector db, bool addNew = true, Computer initialData = null, string initialCompanyName = null, string initialEmployeeFullName = null)
 		{
 			InitializeComponent();
 			this.db = db;
@@ -28,9 +28,7 @@ namespace Ewidencja
 				this.Text = "Edycja danych komputera";
 				acceptButton.Text = "Zapisz";
 				companyComboBox.Enabled = false;
-				companyComboBox.Text = $"Firma o ID = {initialData.companyID}";
-				employeeComboBox.Enabled = false;
-				employeeComboBox.Text = $"Pracownik o ID = {initialData.employeeID}";
+				companyComboBox.Text = initialCompanyName;
 				computerID = initialData.computerID;
 				companyID = initialData.companyID;
 				employeeID = initialData.employeeID;
@@ -39,6 +37,9 @@ namespace Ewidencja
 				RAMSizeTextBox.Text = initialData.ramSize;
 				diskSizeTextBox.Text = initialData.diskSize;
 				windowsKeyTextBox.Text = initialData.windowsKey;
+
+				UpdateEmployeesComboBox(companyID);
+				employeeComboBox.SelectedValue = initialData.employeeID;
 			}
 			else
 			{
@@ -73,14 +74,14 @@ namespace Ewidencja
 
 		private void companyComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			companyID = companyComboBox.SelectedValue.ToString();
+			companyID = ((KeyValuePair<string, string>)companyComboBox.SelectedItem).Key;
 			MessageBox.Show(companyID);
 			if(Int32.TryParse(companyID, out _)) UpdateEmployeesComboBox(companyID);
 		}
 
 		private void employeeComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			employeeID = employeeComboBox.SelectedValue.ToString();
+			employeeID = ((KeyValuePair<string, string>)employeeComboBox.SelectedItem).Key;
 			MessageBox.Show("Employee selected: " + employeeID.ToString());
 		}
 	}
