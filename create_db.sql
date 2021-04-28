@@ -66,16 +66,16 @@ INSERT INTO Inventory.dbo.Employees (companyID, employeeName, employeeSurname, p
 	(3, 'Wojciech', 'Banaszek', 'Inspektor RODO', '+48235645789', 'wojciech.banaszek@outlook.com');
 
 
-INSERT INTO Inventory.dbo.Computers (companyID, employeeID, DiskSize) VALUES
-	(1, 1, 100),
-	(1, 1, 200),
-	(1, 2, 300),
-	(1, 3, 400),
-	(2, 4, 500),
-	(2, 5, 600),
-	(2, 6, 700),
-	(2, 4, 800),
-	(2, 5, 900),
-	(3, 7, 1000),
-	(3, 8, 1100),
-	(3, 9, 1200);
+INSERT INTO Inventory.dbo.Computers (companyID, employeeID, dateOfPurchase, CPU, RamSize, DiskSize, windowsKey) VALUES
+	(1, 1, '2021-01-01', 'i5-7100F', 12, 512, 'ABCD-EFGH'),
+	(1, 1, '2021-01-01', 'i5-7100F', 16, 1024, 'EFGH-EFGH'),
+	(1, 2, '2021-01-01', 'i5-7100F', 4, 128, 'IJKM-EFGH'),
+	(1, 3, '2021-01-01', 'i5-7100F', 8, 256, NULL),
+	(2, 4, '2021-01-01', 'i5-7100F', 12, 1024, 'ABCD-IJKM'),
+	(2, 5, '2021-01-01', 'i5-7100F', 6, 120, 'XYZT-EFGH'),
+	(2, 6, '2021-01-01', 'i5-7100F', 24, 1000, 'ABCD-XYZT'),
+	(2, 4, '2021-01-01', 'i5-7100F', 16, 500, 'PQRS-EFGH'),
+	(2, 5, '2021-01-01', 'i5-7100F', 8, 480, NULL),
+	(3, 7, '2021-01-01', 'i5-7100F', 4, 128, 'ABCD-PQRS'),
+	(3, 8, '2021-01-01', 'i5-7100F', 32, 2048, 'DPDP-EFGH'),
+	(3, 9, '2021-01-01', 'i5-7100F', 2, 160, NULL);
