@@ -147,7 +147,7 @@ namespace Ewidencja
                     if (firstField) firstField = false;
                     else fields += ", ";
                     var value = property.GetValue(item, null);
-                    if (value == null) fields += "null";
+                    if (value == null || value == String.Empty) fields += "NULL";
                     else fields += "'" + value.ToString() + "'";
                 }
             }
@@ -174,7 +174,7 @@ namespace Ewidencja
                     if (firstField) firstField = false;
                     else fields += ", ";
                     var value = property.GetValue(item, null);
-                    if (value == null) fields += $"{property.Name} = NULL";
+                    if (value == null || value == String.Empty) fields += $"{property.Name} = NULL";
                     else fields += $"{property.Name} = '{value.ToString()}'";
                 }
                 else itemID = property.GetValue(item, null).ToString();
